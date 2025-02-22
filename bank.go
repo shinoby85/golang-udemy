@@ -4,41 +4,46 @@ import "fmt"
 
 func main() {
 	accountBalance := 10000.0
-	choice := showMenu()
+	fmt.Println("Welcome to Go Bank")
 
-	if choice == 1 {
-		fmt.Printf("Your balance is %.2f\n", accountBalance)
-	} else if choice == 2 {
-		fmt.Print("Your deposit: ")
-		var deposit float64
-		fmt.Scan(&deposit)
-		if deposit <= 0 {
-			fmt.Println("Invalid amount. Must be greater than 0.")
+	for {
+		var choice int = showMenu()
+
+		if choice == 1 {
+			fmt.Printf("Your balance is %.2f\n", accountBalance)
+		} else if choice == 2 {
+			fmt.Print("Your deposit: ")
+			var deposit float64
+			fmt.Scan(&deposit)
+			if deposit <= 0 {
+				fmt.Println("Invalid amount. Must be greater than 0.")
+				return
+			}
+			accountBalance += deposit
+			fmt.Println("Your balance updated! New amount: ", accountBalance)
+		} else if choice == 3 {
+			fmt.Print("Withdrawal amount: ")
+			var withdrawalAmount float64
+			fmt.Scan(&withdrawalAmount)
+			if withdrawalAmount <= 0 {
+				fmt.Println("Invalid amount. Must be greater than 0.")
+				return
+			}
+			if withdrawalAmount > accountBalance {
+				fmt.Println("Invalid amount. You can't withdraw more than you have.")
+				return
+			}
+			accountBalance -= withdrawalAmount
+			fmt.Println("Your balance updated! New amount: ", accountBalance)
+		} else {
+			fmt.Println("Goodbye!!!")
 			return
 		}
-		accountBalance += deposit
-		fmt.Println("Your balance updated! New amount: ", accountBalance)
-	} else if choice == 3 {
-		fmt.Print("Withdrawal amount: ")
-		var withdrawalAmount float64
-		fmt.Scan(&withdrawalAmount)
-		if withdrawalAmount <= 0 {
-			fmt.Println("Invalid amount. Must be greater than 0.")
-			return
-		}
-		if withdrawalAmount > accountBalance {
-			fmt.Println("Invalid amount. You can't withdraw more than you have.")
-			return
-		}
-		accountBalance -= withdrawalAmount
-		fmt.Println("Your balance updated! New amount: ", accountBalance)
-	} else {
-		fmt.Println("Goodbye!!!")
+		fmt.Println("Your choice is", choice)
 	}
-	fmt.Println("Your choice is", choice)
+
 }
 func showMenu() (userChoice int) {
-	fmt.Println("Welcome to Go Bank")
 	fmt.Println("What do you want to do?")
 	fmt.Println("1. Check balance")
 	fmt.Println("2. Deposit money")
@@ -47,5 +52,5 @@ func showMenu() (userChoice int) {
 	fmt.Print("Your choice: ")
 	fmt.Scanln(&userChoice)
 	fmt.Println("====================================")
-	return
+	return userChoice
 }
