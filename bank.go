@@ -32,6 +32,7 @@ func main() {
 		fmt.Println("ERROR")
 		fmt.Println(err)
 		fmt.Println("-------------------")
+		//panic("Can't continue, sorry")
 	}
 
 	var choice int = showMenu()
