@@ -1,18 +1,38 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"os"
+	"strconv"
 )
+
+const balanceFileName = "balance.txt"
 
 func writeBalanceToFile(balance float64) {
 	balanceText := fmt.Sprint(balance)
-	os.WriteFile("balance.txt", []byte(balanceText), 0644)
+	os.WriteFile(balanceFileName, []byte(balanceText), 0644)
 }
-
+func getBalanceFromFile() (float64, error) {
+	data, err := os.ReadFile(balanceFileName)
+	if err != nil {
+		return 1000, errors.New("failed to find balance file")
+	}
+	balanceText := string(data)
+	balance, err := strconv.ParseFloat(balanceText, 64)
+	if err != nil {
+		return 1000, errors.New("failed to parse stored balance value")
+	}
+	return balance, nil
+}
 func main() {
-	accountBalance := 10000.0
+	accountBalance, err := getBalanceFromFile()
 	fmt.Println("Welcome to Go Bank")
+	if err != nil {
+		fmt.Println("ERROR")
+		fmt.Println(err)
+		fmt.Println("-------------------")
+	}
 
 	var choice int = showMenu()
 
