@@ -1,3 +1,3 @@
-module example.com/bank
+module example.com/go-project
 
 go 1.24.0

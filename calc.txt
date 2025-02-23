@@ -1,0 +1,3 @@
+EBT: 250.0
+Profit: 200.0
+Ration: 1.250
